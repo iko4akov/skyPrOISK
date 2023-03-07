@@ -32,18 +32,15 @@ class BaseDAO(Generic[T]):
         if page and status == 'new':
             try:
                 if page is not None:
-                    stmt = stmt.order_by(desc(self.__model__.year)).limit(12).offset(int(page)-1)
+                    stmt = stmt.order_by(desc(self.__model__.id)).limit(12).offset(int(page)-1)
                     return stmt.all()
             except NotFound:
                 return '', 404
 
         if status == 'new':
-            try:
-                if status is not None:
-                    stmt = stmt.order_by(desc(self.__model__.year))
-                    return stmt.all()
-            except NotFound:
-                return '', 404
+            stmt = stmt.order_by(desc(self.__model__.id))
+            return stmt.all()
+
 
         if page:
             try:

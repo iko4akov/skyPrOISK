@@ -46,7 +46,7 @@ class ProductionConfig(BaseConfig):
 
 class ConfigFactory:
     flask_env = os.environ.get('FLASK_ENV')
-    # flask_env = 'development'
+
     @classmethod
     def get_config(cls) -> Type[BaseConfig]:
         if cls.flask_env == 'development':
@@ -57,5 +57,6 @@ class ConfigFactory:
             return TestingConfig
         raise NotImplementedError
 
+if __name__ == "__main__":
+    config = ConfigFactory.get_config()
 
-config = ConfigFactory.get_config()
